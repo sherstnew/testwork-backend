@@ -22,7 +22,7 @@ export class SessionsService {
 
     const questions = await this.questionModel
       .find()
-      .limit(2)
+      .limit(20)
       .skip(
         Math.floor(Math.random() * (await this.questionModel.countDocuments())),
       );
