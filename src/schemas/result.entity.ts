@@ -10,6 +10,9 @@ export class Result {
 
   @Prop()
   result: number;
+
+  @Prop()
+  time: number;
 }
 
 export const ResultSchema = SchemaFactory.createForClass(Result);

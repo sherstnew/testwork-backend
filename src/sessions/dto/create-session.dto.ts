@@ -4,7 +4,7 @@ import {
   IsDateString,
   IsOptional,
 } from 'class-validator';
-import { Question } from '../entities/question.entity';
+import { Question } from '../../schemas/question.entity';
 
 export class CreateSessionDto {
   @IsNotEmpty()

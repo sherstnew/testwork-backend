@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { SessionsController } from './sessions.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SessionSchema, Session } from './entities/session.entity';
-import { Result, ResultSchema } from './entities/result.entity';
-import { Question, QuestionSchema } from './entities/question.entity';
+import { SessionSchema, Session } from '../schemas/session.entity';
+import { Result, ResultSchema } from '../schemas/result.entity';
+import { Question, QuestionSchema } from '../schemas/question.entity';
 
 @Module({
   imports: [

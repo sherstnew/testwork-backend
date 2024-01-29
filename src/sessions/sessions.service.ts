@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Session } from './entities/session.entity';
-import { Result } from './entities/result.entity';
-import { Question } from './entities/question.entity';
-import { CreateResultDto } from './dto/create-result.dto';
+import { Session } from '../schemas/session.entity';
+import { Result } from '../schemas/result.entity';
+import { Question } from '../schemas/question.entity';
 
 @Injectable()
 export class SessionsService {
@@ -47,18 +46,5 @@ export class SessionsService {
     } else {
       return 'Session Error';
     }
-  }
-
-  async finishTest(id: Types.ObjectId, createResultDto: CreateResultDto) {
-    const session = await this.sessionModel.findById(id).exec();
-
-    const createdResult = new this.resultModel({
-      name: session.name,
-      result: createResultDto.result,
-    });
-
-    await this.sessionModel.findByIdAndDelete(id).exec();
-
-    return createdResult.save();
   }
 }
