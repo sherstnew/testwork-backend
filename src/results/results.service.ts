@@ -26,7 +26,7 @@ export class ResultsService {
   }
 
   async findAll() {
-    return this.resultModel.find().exec();
+    return this.resultModel.find().sort({ createdAt: -1 }).exec();
   }
 
   async findOne(id: Types.ObjectId) {
