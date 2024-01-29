@@ -4,13 +4,13 @@ import { AppService } from './app.service';
 import { SessionsModule } from './sessions/sessions.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ResultsModule } from './results/results.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     SessionsModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://sherstnev:qebeh22@cluster0.gtw16wm.mongodb.net/testwork',
-    ),
+    MongooseModule.forRoot(process.env.DATABASE_URL),
     ResultsModule,
   ],
   controllers: [AppController],
