@@ -5,6 +5,7 @@ import { Model, Types } from 'mongoose';
 import { Session } from '../schemas/session.entity';
 import { Result } from '../schemas/result.entity';
 import { Question } from '../schemas/question.entity';
+import { Exam } from 'src/schemas/exam.entity';
 
 @Injectable()
 export class SessionsService {
@@ -12,19 +13,21 @@ export class SessionsService {
     @InjectModel(Session.name) private sessionModel: Model<Session>,
     @InjectModel(Result.name) private resultModel: Model<Result>,
     @InjectModel(Question.name) private questionModel: Model<Question>,
+    @InjectModel(Exam.name) private examModel: Model<Exam>,
   ) {}
 
-  async create(createSessionDto: CreateSessionDto) {
+  async create(createSessionDto: CreateSessionDto, examId: Types.ObjectId) {
+    const exam = await this.examModel.findById(examId);
+    // добавить на клиент examId
+
     const expiredAt = new Date();
     expiredAt.setDate(expiredAt.getDate() + 3);
     createSessionDto.expiredAt = expiredAt;
 
     const questions = await this.questionModel
       .find()
-      .limit(20)
-      .skip(
-        Math.floor(Math.random() * (await this.questionModel.countDocuments())),
-      );
+      .limit(exam.questionsLimit)
+      .skip(Math.floor(Math.random() * (await exam.questions.length)));
 
     createSessionDto.questions = questions;
 
