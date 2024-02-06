@@ -19,14 +19,18 @@ export class SessionsService {
     expiredAt.setDate(expiredAt.getDate() + 3);
     createSessionDto.expiredAt = expiredAt;
 
-    const questions = await this.questionModel
-      .find()
-      .limit(20)
-      .skip(
-        Math.floor(Math.random() * (await this.questionModel.countDocuments())),
-      );
+    // const questions = await this.questionModel
+    //   .find()
+    //   .limit(20)
+    //   .skip(
+    //     Math.floor(Math.random() * (await this.questionModel.countDocuments())),
+    //   );
+    const questions = await this.questionModel.find();
+    questions.sort(() => Math.random() - 0.5);
 
-    createSessionDto.questions = questions;
+    const shuffledQuestions = questions.slice(0, 20);
+
+    createSessionDto.questions = shuffledQuestions;
 
     const createdSession = new this.sessionModel(createSessionDto);
     return createdSession.save();
