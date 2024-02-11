@@ -15,7 +15,7 @@ export class SessionsService {
     @InjectModel(Question.name) private questionModel: Model<Question>,
   ) {}
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async deleteExpiredSessions() {
     const sessions = await this.sessionModel.find();
     const currentDate = new Date();
