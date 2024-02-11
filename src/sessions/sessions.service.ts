@@ -5,6 +5,7 @@ import { Model, Types } from 'mongoose';
 import { Session } from '../schemas/session.entity';
 import { Result } from '../schemas/result.entity';
 import { Question } from '../schemas/question.entity';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class SessionsService {
@@ -13,6 +14,24 @@ export class SessionsService {
     @InjectModel(Result.name) private resultModel: Model<Result>,
     @InjectModel(Question.name) private questionModel: Model<Question>,
   ) {}
+
+  @Cron(CronExpression.EVERY_MINUTE)
+  async deleteExpiredSessions() {
+    const sessions = await this.sessionModel.find();
+    const currentDate = new Date();
+
+    for (let i = 0; i < sessions.length; i++) {
+      const session = sessions[i];
+      if (!(session.expiredAt.getTime() > currentDate.getTime())) {
+        await this.sessionModel.findByIdAndDelete(session._id).exec();
+      }
+    }
+  }
+
+  async createQuestion(ICreatedQuestion) {
+    const createdQuestion = new this.questionModel(ICreatedQuestion);
+    return createdQuestion.save();
+  }
 
   async create(createSessionDto: CreateSessionDto) {
     const expiredAt = new Date();

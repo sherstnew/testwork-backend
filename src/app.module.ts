@@ -5,12 +5,14 @@ import { SessionsModule } from './sessions/sessions.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ResultsModule } from './results/results.module';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    SessionsModule,
+    ScheduleModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE_URL),
+    SessionsModule,
     ResultsModule,
   ],
   controllers: [AppController],

@@ -13,6 +13,11 @@ export class SessionsController {
     return this.sessionsService.create(createSessionDto);
   }
 
+  @Post('question')
+  createQuestion(@Body() ICreatedQuestion) {
+    return this.sessionsService.createQuestion(ICreatedQuestion);
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseObjectIdPipe) id: Types.ObjectId) {
     return this.sessionsService.findOne(id);
