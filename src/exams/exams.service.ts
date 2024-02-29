@@ -31,7 +31,11 @@ export class ExamsService {
     return this.examModel
       .find()
       .populate({ path: 'questions', model: this.questionModel })
-      .populate({ path: 'results', model: this.resultModel })
+      .populate({
+        path: 'results',
+        model: this.resultModel,
+        options: { sort: { createdAt: -1 } },
+      })
       .exec();
   }
 
@@ -39,7 +43,11 @@ export class ExamsService {
     return this.examModel
       .findById(id)
       .populate({ path: 'questions', model: this.questionModel })
-      .populate({ path: 'results', model: this.resultModel })
+      .populate({
+        path: 'results',
+        model: this.resultModel,
+        options: { sort: { createdAt: -1 } },
+      })
       .exec();
   }
 
