@@ -14,6 +14,7 @@ export class SessionsService {
     @InjectModel(Session.name) private sessionModel: Model<Session>,
     @InjectModel(Result.name) private resultModel: Model<Result>,
     @InjectModel(Question.name) private questionModel: Model<Question>,
+    @InjectModel(Exam.name) private examModel: Model<Exam>,
   ) {}
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
