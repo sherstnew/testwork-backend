@@ -8,9 +8,12 @@ import { ParseObjectIdPipe } from 'src/pipes/ParseObjectIdPipe';
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
-  @Post()
-  create(@Body() createSessionDto: CreateSessionDto) {
-    return this.sessionsService.create(createSessionDto);
+  @Post(':examId')
+  create(
+    @Param('examId', ParseObjectIdPipe) examId: Types.ObjectId,
+    @Body() createSessionDto: CreateSessionDto,
+  ) {
+    return this.sessionsService.create(createSessionDto, examId);
   }
 
   @Post('question')

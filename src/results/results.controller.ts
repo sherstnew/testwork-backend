@@ -8,9 +8,12 @@ import { Types } from 'mongoose';
 export class ResultsController {
   constructor(private readonly resultsService: ResultsService) {}
 
-  @Post()
-  create(@Body() createResultDto: CreateResultDto) {
-    return this.resultsService.create(createResultDto);
+  @Post(':examId')
+  create(
+    @Param('examId', ParseObjectIdPipe) examId: Types.ObjectId,
+    @Body() createResultDto: CreateResultDto,
+  ) {
+    return this.resultsService.create(createResultDto, examId);
   }
 
   @Get()

@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SessionSchema, Session } from '../schemas/session.entity';
 import { Result, ResultSchema } from '../schemas/result.entity';
 import { Question, QuestionSchema } from '../schemas/question.entity';
+import { Exam, ExamSchema } from 'src/schemas/exam.entity';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Question, QuestionSchema } from '../schemas/question.entity';
       { name: Session.name, schema: SessionSchema },
       { name: Result.name, schema: ResultSchema },
       { name: Question.name, schema: QuestionSchema },
+      { name: Exam.name, schema: ExamSchema },
     ]),
   ],
   controllers: [SessionsController],
